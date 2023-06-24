@@ -44,8 +44,7 @@ function horizontalBarChart (option,datasample) {
      traceData = [Trace];
 
     layout = {
-        title: 'OTU',
-        yaxis: {
+       yaxis: {
             autorange: "reversed" 
         }
     };
@@ -65,8 +64,13 @@ function bubbleChart (option,datasample) {
     let otuID = samples.map(sample => sample.otu_ids.slice(0,10));
     let otuLabel = samples.map(sample => sample.otu_labels.slice(0,10));
 
-    var marker_size = barData.map(row =>row.sample_values);
-    var marker_color = barData.map(row =>row.otu_ids);
+    let marker_size = barData.map(row =>row.sample_values);
+    let marker_color = barData.map(row =>row.otu_ids);
+
+    console.log(sampleValues[0])
+    console.log(otuID[0])
+    console.log(otuLabel[0])
+   
     
 
     let bubbleTrace = {
@@ -83,7 +87,10 @@ function bubbleChart (option,datasample) {
         }
     
     let layoutBubble = {
-        title: 'Bubble OTU'
+        xaxis:{
+            title: "OTU ID"
+        }
+
     };
     Plotly.newPlot("bubble", [bubbleTrace], layoutBubble);
 
@@ -112,10 +119,8 @@ function displaymetadata(obj) {
 };
 
 function optionChanged(value) {
-    console.log("INside Optionchanged")
     option = value;
     console.log(`option selected ${option}`)
-    console.log(option)
     displayDemoData(option,bellydata);
     horizontalBarChart(option,bellydata);
     bubbleChart(option,bellydata);
